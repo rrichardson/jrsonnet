@@ -40,20 +40,21 @@ pub struct MiscOpts {
 	/// Note that standard library will still be loaded
 	/// if chosen manifestification method is not `none`.
 	#[clap(long)]
-	no_stdlib: bool,
+	pub no_stdlib: bool,
 
 	/// Maximal allowed number of stack frames,
 	/// stack overflow error will be raised if this number gets exceeded.
 	#[clap(long, short = 's', default_value = "200")]
-	max_stack: usize,
+	pub max_stack: usize,
 
 	/// Library search dirs.
 	/// Any not found `imported` file will be searched in these.
 	/// This can also be specified via `JSONNET_PATH` variable,
 	/// which should contain a colon-separated (semicolon-separated on Windows) list of directories.
 	#[clap(long, short = 'J')]
-	jpath: Vec<PathBuf>,
+	pub jpath: Vec<PathBuf>,
 }
+
 impl ConfigureState for MiscOpts {
 	fn configure(&self, state: &EvaluationState) -> Result<()> {
 		if !self.no_stdlib {
@@ -74,15 +75,16 @@ impl ConfigureState for MiscOpts {
 #[clap(name = "jrsonnet", version, author)]
 pub struct GeneralOpts {
 	#[clap(flatten)]
-	misc: MiscOpts,
+	pub misc: MiscOpts,
 
 	#[clap(flatten)]
-	tla: TLAOpts,
-	#[clap(flatten)]
-	ext: ExtVarOpts,
+	pub tla: TLAOpts,
 
 	#[clap(flatten)]
-	trace: TraceOpts,
+	pub ext: ExtVarOpts,
+
+	#[clap(flatten)]
+	pub trace: TraceOpts,
 }
 
 impl ConfigureState for GeneralOpts {
